@@ -1,0 +1,114 @@
+{% extends './baseMenu.html' %}
+
+{% block identMenu %}
+    <p class="header-menu__parrafo no-margin">Administrador</p>
+{% endblock %}
+
+{% block elementsSide %}
+    <a href="{{url_for('admPerfil')}}" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/user.svg" alt="Icono Perfil">
+        </div>
+        <p class="element-side__text element-side__text--active no-margin">Perfil</p>
+    </a>
+
+    <a href="{{url_for('admVentas')}}" class="element-side ">
+        <div class="icon">
+            <img src="../static/Imgs/bar_chart.svg" alt="Icono Ventas">
+        </div>
+        <p class="element-side__text no-margin">Ventas</p>
+    </a>
+
+    <a href="" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/pie_chart_outline.svg" alt="Icono Reportes">
+        </div>
+        <p class="element-side__text no-margin">Reportes</p>
+    </a>
+
+    <a href="{{url_for('registrarProveedor')}}" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/layers_alt.svg" alt="Icono Proveedores">
+        </div>
+        <p class="element-side__text no-margin">Proveedores</p>
+    </a>
+
+    <a href="{{url_for('registrarEvaluaciones')}}" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/star_border.svg" alt="Icono Evaluaciones">
+        </div>
+        <p class="element-side__text no-margin">Evaluaciones</p>
+    </a>
+
+    <a href="{{url_for('registrarSucursal')}}" class="element-side no-margin element-side--active">
+        <div class="icon">
+            <img src="../static/Imgs/group.svg" alt="Icono Operarios">
+        </div>
+        <p class="element-side__text no-margin">Sucursales</p>
+    </a>
+{% endblock %}
+
+{% block mainContainer %}
+    <header class="contenedor-administracion header-administracion">
+        <nav class="nav-administracion">
+            <a href="{{url_for('registrarSucursal')}}" class="nav-administracion__enlace nav-administracion__enlace--activo">Sucursales</a>
+            <a href="{{url_for('registrarOperario')}}" class="nav-administracion__enlace">Operarios</a>
+            <a href="{{url_for('agregarOferta')}}" class="nav-administracion__enlace no-margin">Ofertas</a>    
+        </nav>
+    </header>
+
+    <main class="contenedor-administracion contenedor-administracion--sombra">
+        <form action="{{url_for('registrarSucursal')}}" class="administracion-registrar" method="POST">
+            <h2 class="administracion-registrar__titulo">Registrar Sucursal</h2>
+            <div class="flex-row-container justify-space-between">
+                <div class="controles-registrar">
+                    <input type="text" placeholder="Nombre de la sucursal" class="controles-registrar__control" name="nombre" required>
+                    <input type="text" placeholder="Dirección" class="controles-registrar__control" name="direccion" required>
+                    <select name="idCiudad" class="controles-registrar__control" id="select" required>
+                        <option selected disabled>Ciudad</option>
+                        {% for ciudad in sucursalesPorCiudad %}
+                            <option value="{{ciudad['ciudad'].id}}">{{ciudad['ciudad'].nombre}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button class="button button-registrar" disabled>Registrar</button>
+            </div>
+        </form>
+    </main class="contenedor-administracion">
+
+    <div class="contenedor-administracion contenedor-administracion--sombra">
+        <section class="administracion-registrar administracion-registros">
+            <table class="administracion-tabla">
+                <caption class="administracion-registrar__titulo">Sucursales</caption>
+                <thead>
+                    <th>Nombre</th>
+                    <th>Dirección</th>
+                    <th>Ciudad</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    {% for ciudad in sucursalesPorCiudad %}
+                        {% for sucursal in ciudad["sucursales"] %}
+                            {% set colorRow = 'administracion-tabla__fila--blanca' %}
+                            {% if loop.index % 2 != 0 %}
+                                {% set colorRow = 'administracion-tabla__fila' %}
+                            {% endif %}
+                                <tr class="{{colorRow}}">
+                                    <td>{{ sucursal.nombre }}</td>
+                                    <td class="text-align-center">{{ sucursal.direccion }}</td>
+                                    <td class="text-align-center">{{ ciudad["ciudad"].nombre}}</td>
+                                    <td class="text-align-center">
+                                        <a href="{{ url_for('eliminarSucursal', id = sucursal.id)}}" class="button-eliminar">
+                                            <img src="../static/Imgs/delete_outline.png" alt="Icono Eliminar">
+                                        </a>
+                                    </td>
+                                </tr>
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <script src="../static/scripts/script.js"></script>
+{% endblock %}

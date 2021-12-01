@@ -1,0 +1,97 @@
+{% extends './baseMenu.html' %}
+
+{% block identMenu %}
+    <p class="header-menu__parrafo no-margin">Administrador</p>
+{% endblock %}
+
+{% block elementsSide %}
+
+    <a href="{{url_for('admPerfil')}}" class="element-side element-side--active">
+        <div class="icon">
+            <img src="../static/Imgs/user.svg" alt="Icono Perfil">
+        </div>
+        <p class="element-side__text element-side__text--active no-margin">Perfil</p>
+    </a>
+
+    <a href="{{url_for('admVentas')}}" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/bar_chart.svg" alt="Icono Ventas">
+        </div>
+        <p class="element-side__text no-margin">Ventas</p>
+    </a>
+
+    <a href="" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/pie_chart_outline.svg" alt="Icono Reportes">
+        </div>
+        <p class="element-side__text no-margin">Reportes</p>
+    </a>
+
+    <a href="{{url_for('registrarProveedor')}}"  class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/layers_alt.svg" alt="Icono Proveedores">
+        </div>
+        <p class="element-side__text no-margin">Proveedores</p>
+    </a>
+
+    <a href="{{url_for('registrarEvaluaciones')}}" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/star_border.svg" alt="Icono Evaluaciones">
+        </div>
+        <p class="element-side__text no-margin">Evaluaciones</p>
+    </a>
+
+    <a href="{{url_for('registrarSucursal')}}" class="element-side no-margin">
+        <div class="icon">
+            <img src="../static/Imgs/group.svg" alt="Icono Operarios">
+        </div>
+        <p class="element-side__text no-margin">Sucursales</p>
+    </a>
+
+{% endblock %}
+
+{% block mainContainer %}
+
+    <div class="perfil-center-container">
+        <form class="form-perfil">
+            <div class="info-text-perfil">
+                <div class="flex-row-container info-name">
+                    <div class="flex-column-container info-nombres">
+                        <label for="nombres" class="info-nombres__label" >Nombres</label>
+                        <input type="text" class="info-nombres__control" value="{{session['nombre']}}" name="" id="nombres" disabled>
+                    </div>
+    
+                    <div class="flex-column-container info-nombres">
+                        <label for="apellidos" class="info-nombres__label">Apellidos</label>
+                        <input type="text" class="info-nombres__control"  name="" value="{{session['apellido']}}" id="apellidos" disabled>
+                    </div>	
+                </div>
+    
+                <div class="flex-row-container info-user">
+                    <div class="flex-column-container info-login">
+                        <label for="correo" class="info-login__label">Correo electrónico</label>
+                        <input type="mail" class="info-login__control no-margin" name="" value="{{session['correo']}}" id="correo">
+                    </div>
+    
+                    <div class="flex-column-container info-login">
+                        <label for="contrasena" class="info-login__label">Contraseña</label>
+                        <input type="password" class="info-login__control no-margin" name="" value="{{session['contrasena']}}" id="contrasena">
+                    </div>	
+                </div>
+            </div>
+
+            <div class="img-editar-container">
+                <div class="img-perfil">
+                    <img src="../static/Imgs/imgFrank.png" alt="">
+                </div>
+                <button class="button button-editar-perfil">Editar</button>
+            </div>
+
+        </form>
+
+        <section>
+
+        </section>
+    </div>
+
+{% endblock %}

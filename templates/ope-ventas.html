@@ -1,0 +1,51 @@
+{% extends './baseMenu.html' %}
+
+{% block identMenu %}
+    <p class="header-menu__parrafo no-margin">Operario</p>
+{% endblock %}
+
+{% block elementsSide %}
+
+    <a href="{{url_for('opePerfil')}}" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/user.svg" alt="Icono Perfil">
+        </div>
+        <p class="element-side__text no-margin">Perfil</p>
+    </a>
+
+    <a href="{{url_for('registrarClientes')}}" class="element-side element-side--active">
+        <div class="icon">
+            <img src="../static/Imgs/bar_chart.svg" alt="Icono Ventas">
+        </div>
+        <p class="element-side__text element-side__text--active no-margin">Ventas</p>
+    </a>
+
+{% endblock %}
+
+{% block mainContainer %}
+    <header class="contenedor-administracion header-administracion">
+        <nav class="nav-administracion">
+            <a href="{{url_for('registrarClientes')}}" class="nav-administracion__enlace">Clientes</a>
+            <a href="{{url_for('registrarVentas')}}" class="nav-administracion__enlace nav-administracion__enlace--activo no-margin">Ventas</a>
+        </nav>
+    </header>
+
+    <main class="contenedor-administracion contenedor-administracion--sombra contenedor-administracion--operario-venta">
+        <div class="administracion-registrar administracion-registros administracion-registros--operario-venta">
+            <form action="{{url_for('registrarVentas')}}" method="POST">
+                <h2 class="administracion-registrar__titulo">Registrar Venta</h2>
+                    <div class="controles-registrar controles-registrar--venta-operario">
+                        <select class="controles-registrar__control" name="oferta">
+                            <option selected disabled>Oferta</option>
+                            {% for oferta in ofertas %}
+                                <option value="{{oferta[1]}}">{{oferta[0]}}</option>
+                            {% endfor %}
+                        </select>
+                        <input class="controles-registrar__control" type="text" name="nDocumento"  placeholder="Número de documento" required>
+                        <input class="controles-registrar__control" type="number" name="cant" placeholder="Cantidad" required>
+                        <button class="button button-registrar button-registrar--operarios">Registrar</button>
+                    </div>
+            </form>
+        </div>
+    </main class="contenedor-administracion">
+{% endblock %}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto&display=swap" rel="stylesheet">
+		<link rel="icon" href="../static/Imgs/Icon simple-elasticsearch.svg">
+		<link rel="stylesheet" href="../static/styles/normalize.css">
+		<link rel="stylesheet" href="../static/styles/style.css">
+		<title>Génesis System</title>
+	</head>
+	<body>
+		<header class="header">
+			<div class="logo">
+				<div>
+					<img src="../static/Imgs/Icon simple-elasticsearch.png" alt="Logo Génesis System" class="logo__img">
+				</div>
+				<h1 class="logo__titulo no-margin">Génesis System</h1>
+			</div>
+			<nav class="navegacion">
+				<a href="http://www.url.com" target="_blank" class="navegacion__enlace">Inicio</a>
+				<a href="http://www.url.com" target="_blank" class="navegacion__enlace">Beneficios</a>
+				<a href="http://www.url.com" target="_blank" class="navegacion__enlace">Contáctanos</a>
+				<a href="http://www.url.com" target="_blank" class="navegacion__enlace no-margin">Quiénes somos</a>
+			</nav>
+		</header>
+		<main class="main">
+			<div class="contenedor main__contenedor">
+				<div class="main-info">
+					<h2 class="main-info__titulo no-margin"><span>Evalúa tus productos favoritos</h2>
+					<p class="main-info__parrafo no-margin">Obten grandes beneficios</p>
+				</div>
+				<div class="main__img">
+					<img src="../static/Imgs/Saly-10.png" alt="Caricatura Génesis">
+				</div>	
+			</div>
+		</main>
+
+		<form action="{{url_for('index')}}" method="POST" class="form-calificar contenedor">
+			<div class="controles">
+				<div class="control">
+					<div class="control__img">
+						<img src="../static/Imgs/search.png" alt="Icono buscar">
+					</div>
+					<input type="tel" placeholder="Número de documento" name="numDocumento" required>
+				</div>
+				<div class="control control--padding-left">
+					<select required>
+						<option disabled selected name="opt-tipoDocumento">Tipo de documento</option>
+						<option value="option">Cedúla de ciudadanía</option>
+						<option value="option">Cedúla de extranjería</option>
+						<option value="option">Pasaporte</option>
+					</select>	
+				</div>
+			</div>
+			<button class="form-calificar__button button">Evaluar productos</button>
+		</form>
+
+		<section>
+			<section class="contenedor-info contenedor-info--column-reverse">
+				<div class="info-texto">
+					<h2>¿Cómo Funciona?</h2>
+					<p>Cuando compras un producto en nuestra empresa, puedes evaluar los productos, escribir reseñas subir fotografías sobre 
+					tu experiencia con ellos, y tendrás la oportunidad de ganar beneficios y descuentos para adquirir otros productos de 
+					nuestro catálogo.</p>
+				</div>
+				<div class="info-img">
+					<img src="../static/Imgs/graficoComoFunciona.png" alt="Gráfico de ¿Cómo Funciona?">
+				</div>
+			</section>
+
+			<section class="contenedor-info contenedor-info--beneficios contenedor-info--margin">
+				<div class="info-img">
+					<img src="../static/Imgs/graficoBeneficios.png" alt="Gráfico Beneficios">
+				</div>
+
+				<div class="info-texto info-texto--beneficios">
+					<h2>Beneficios</h2>
+					<p>Con cada evaluación que realizas a un producto, acumulas puntos que te permiten concursar en los sorteos semanales y 
+					mensuales de increíbles premios!</p>
+					<p>Si no ganas, no te desanimes, puedes redimirlos también por cupones de descuento.</p>
+				</div>
+			</section>
+
+			<section class="contenedor-info contenedor-info--transparentes contenedor-info--column-reverse">
+				<div class="info-texto info-texto--transparentes">
+					<h2>Somos Transparentes</h2>
+					<p>Somos claros contigo, con la información que nos brindas, nos permites conocer cuales productos son mejores, no solo para tí, 
+					si no para todos.</p>
+					<p>Con tus reseñas nos ayudas a mejorar, y nos permites traerte lo mejor de la tecnología.</p>
+					<p>¡Es un gana y gana! <span class="info-texto__emoji">&nbsp;🤝</span></p>
+				</div>
+
+				<div class="info-img">
+					<img src="../static/Imgs/graficoSomosTransparentes.png" alt="Gráfico Somos Transparentes">
+				</div>
+			</section>
+		</section>
+
+		<footer class="footer">
+				<div class="logo">
+					<div class="logo__img logo__img-footer">
+						<img src="../static/Imgs/Icon simple-elasticsearch 2.png" alt="Logo Footer">
+					</div>
+					<h2 class="logo__titulo-footer no-margin">Génesis System</h2>
+				</div>
+
+				<nav class="navegacion navegacion-footer">
+					<a href="http://www.url.com" class="navegacion__enlace-footer" target="_blank">Inicio</a>
+					<a href="http://www.url.com" class="navegacion__enlace-footer" target="_blank">Beneficios</a>
+					<a href="http://www.url.com" class="navegacion__enlace-footer"  target="_blank">Contáctanos</a>
+					<a href="http://www.url.com" class="navegacion__enlace-footer" target="_blank">Quienes Somos</a>
+				</nav>
+
+				<div class="social-networks">
+					<h2 class="social-networks__titulo">Social</h2>
+					<div class="networks">
+						<a href="/" class="network">
+							<img src="../static/Imgs/facebook.png" alt="Icono Facebook">
+						</a>
+						<a href="/" class="network">
+							<img src="../static/Imgs/twitter.png" alt="Icono Twitter">
+						</a>
+						<a href="/" class="network no-margin">
+							<img src="../static/Imgs/instagram.png" alt="Icono Instagram">
+						</a>
+					</div>
+				</div>
+		</footer>
+	</body>
+</html>

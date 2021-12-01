@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es" class="height-100">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto&display=swap" rel="stylesheet">
+		<link rel="icon" href="../static/Imgs/Icon simple-elasticsearch.svg">
+		<link rel="stylesheet" href="../static/styles/normalize.css">
+		<link rel="stylesheet" href="../static/styles/style.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" 
+		integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" 
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<title>Génesis System - Administrador</title>
+	</head>
+	<body class="height-100 flex-column-container">
+		<header class="header-menu">
+			<div class="logo-menu">
+				<div class="logo-menu__img">
+					<img src="../static/Imgs/Icon simple-elasticsearch.svg" alt="Logo Génesis System">
+				</div>
+				<h1 class="logo-menu__titulo no-margin">Génesis System</h1>
+			</div>
+            {% block identMenu %}
+            {% endblock %}
+		</header>
+
+		<div class="flex-row-container menu-info">
+			<aside class="sidebar">
+                <div>
+                    {% block elementsSide %}
+                    {% endblock %}
+			    </div>
+				<a href="{{url_for('logout')}}" class="flex-row-container container-cerrar-sesion">
+					<div class="container-cerrar-sesion__img">
+						<img src="../static/Imgs/exit.png" alt="Icono Cerrar sesión">
+					</div>
+					<p class="container-cerrar-sesion__texto">Cerrar sesión</p>
+				</a>
+			</aside>
+
+			<main class="main-perfil">
+                {% block mainContainer %}
+                {% endblock %}
+			</main>
+		</div>
+	</body>
+</html>

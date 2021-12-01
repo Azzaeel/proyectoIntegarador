@@ -1,0 +1,110 @@
+{% extends './baseMenu.html' %}
+
+{% block identMenu %}
+    <p class="header-menu__parrafo no-margin">Administrador</p>
+{% endblock %}
+
+{% block elementsSide %}
+    <a href="{{url_for('admPerfil')}}" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/user.svg" alt="Icono Perfil">
+        </div>
+        <p class="element-side__text element-side__text--active no-margin">Perfil</p>
+    </a>
+
+    <a href="{{url_for('admVentas')}}" class="element-side ">
+        <div class="icon">
+            <img src="../static/Imgs/bar_chart.svg" alt="Icono Ventas">
+        </div>
+        <p class="element-side__text no-margin">Ventas</p>
+    </a>
+
+    <a href="" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/pie_chart_outline.svg" alt="Icono Reportes">
+        </div>
+        <p class="element-side__text no-margin">Reportes</p>
+    </a>
+
+    <a href="{{url_for('registrarProveedor')}}" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/layers_alt.svg" alt="Icono Proveedores">
+        </div>
+        <p class="element-side__text no-margin">Proveedores</p>
+    </a>
+
+    <a href="{{url_for('registrarEvaluaciones')}}" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/star_border.svg" alt="Icono Evaluaciones">
+        </div>
+        <p class="element-side__text no-margin">Evaluaciones</p>
+    </a>
+
+    <a href="{{url_for('registrarSucursal')}}" class="element-side no-margin element-side--active">
+        <div class="icon">
+            <img src="../static/Imgs/group.svg" alt="Icono Operarios">
+        </div>
+        <p class="element-side__text no-margin">Sucursales</p>
+    </a>
+{% endblock %}
+
+{% block mainContainer %}
+    <header class="contenedor-administracion header-administracion">
+        <nav class="nav-administracion">
+            <a href="{{url_for('registrarSucursal')}}" class="nav-administracion__enlace">Sucursales</a>
+            <a href="{{url_for('registrarOperario')}}" class="nav-administracion__enlace ">Operarios</a>
+            <a href="{{url_for('agregarOferta')}}" class="nav-administracion__enlace nav-administracion__enlace--activo no-margin">Ofertas</a>    
+        </nav>
+    </header>
+    <main class="contenedor-administracion contenedor-administracion--sombra">
+        <form action="{{url_for('agregarOferta')}}" class="administracion-registrar" method="POST">
+            <h2 class="administracion-registrar__titulo">Agregar Oferta</h2>
+            <div class="flex-row-container justify-space-between">
+                <div class="controles-registrar">
+                    <select class="controles-registrar__control" name="sucursal" required>
+                        <option selected disabled>Sucursal</option>
+                        {% for sucursal in sucursales %}
+                            <option value="{{sucursal.id}}">{{sucursal.nombre}}</option>
+                        {% endfor %}
+                    </select>
+                    <select class="controles-registrar__control" name="proveedor" required>
+                        <option selected disabled>Proveedor</option>
+                        <option value="">Hola</option>
+                    </select>
+                    <select class="controles-registrar__control" name="oferta" id="select" required>
+                        <option selected disabled>Oferta</option>
+                    </select>
+                </div>
+                <button class="button button-registrar" disabled>Registrar</button>
+            </div>
+        </form>
+    </main class="contenedor-administracion">
+
+    <section class="contenedor-administracion contenedor-administracion--sombra">
+        <div class="administracion-registrar administracion-registros">
+            <table class="administracion-tabla">
+                <caption class="administracion-registrar__titulo">Ofertas agregadas</caption>
+                <thead>
+                    <th>Sucursal</th>
+                    <th>Proveedor</th>
+                    <th>Producto</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr class="">
+                        <td class="text-align-center"></td>
+                        <td class="text-align-center"></td>
+                        <td class="text-align-center"></td>
+                        <td>
+                            <a href="" class="button-eliminar">
+                                <img src="../static/Imgs/delete_outline.png" alt="Icono Eliminar">
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <script src="../static/scripts/script.js"></script>
+{% endblock %}

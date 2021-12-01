@@ -1,0 +1,130 @@
+{% extends './baseMenu.html' %}
+
+{% block identMenu %}
+    <p class="header-menu__parrafo no-margin">Administrador</p>
+{% endblock %}
+
+{% block elementsSide %}
+
+    <a href="{{url_for('admPerfil')}}" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/user.svg" alt="Icono Perfil">
+        </div>
+        <p class="element-side__text element-side__text--active no-margin">Perfil</p>
+    </a>
+
+    <a href="{{url_for('admVentas')}}" class="element-side ">
+        <div class="icon">
+            <img src="../static/Imgs/bar_chart.svg" alt="Icono Ventas">
+        </div>
+        <p class="element-side__text no-margin">Ventas</p>
+    </a>
+
+    <a href="" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/pie_chart_outline.svg" alt="Icono Reportes">
+        </div>
+        <p class="element-side__text no-margin">Reportes</p>
+    </a>
+
+    <a href="{{url_for('registrarProveedor')}}" class="element-side element-side--active">
+        <div class="icon">
+            <img src="../static/Imgs/layers_alt.svg" alt="Icono Proveedores">
+        </div>
+        <p class="element-side__text no-margin">Proveedores</p>
+    </a>
+
+    <a href="{{url_for('registrarEvaluaciones')}}" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/star_border.svg" alt="Icono Evaluaciones">
+        </div>
+        <p class="element-side__text no-margin">Evaluaciones</p>
+    </a>
+
+    <a href="{{url_for('registrarSucursal')}}" class="element-side no-margin">
+        <div class="icon">
+            <img src="../static/Imgs/group.svg" alt="Icono Operarios">
+        </div>
+        <p class="element-side__text no-margin">Sucursales</p>
+    </a>
+
+{% endblock %}
+
+{% block mainContainer %}
+
+    <header class="contenedor-administracion header-administracion">
+        <nav class="nav-administracion">
+            <a href="{{url_for('registrarProveedor')}}" class="nav-administracion__enlace ">Proveedores</a>
+            <a href="{{url_for('registrarOferta')}}" class="nav-administracion__enlace nav-administracion__enlace--activo no-margin">Ofertas</a>
+        </nav>
+    </header>
+
+    <main class="contenedor-administracion contenedor-administracion--sombra">
+        <form action="{{url_for('registrarOferta')}}" class="administracion-registrar" method="POST">
+            <h2 class="administracion-registrar__titulo">Registrar Oferta</h2>
+            <div class="flex-row-container justify-space-between">
+                <div class="controles-registrar controles-registrar--ofertas">
+                    <input type="text" placeholder="Nombre" class="controles-registrar__control" name="nombre" required>
+                    <input type="text" placeholder="Garantía" class="controles-registrar__control" name="garantia">
+                    <input type="number" placeholder="Precio" class="controles-registrar__control" name="precio" min="0" required>
+                    <select class="controles-registrar__control" name="idProveedor" id="select" required>
+                        <option selected disabled>Proveedor</option>
+                        {% for proveedor in proveedores %}
+                            <option value="{{proveedor.id}}">{{proveedor.nombre}}</option>
+                        {% endfor %}
+                    </select>
+                    <select class="controles-registrar__control" name="idEncuesta" id="select" required>
+                        <option selected disabled>Encuesta</option>
+                        {% for encuesta in encuestas %}
+                            <option value="{{encuesta[0].id}}">{{encuesta[0].nombre}} - Para {{encuesta[1]}}s</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="flex-direction-row align-items-center contenedor-button-registro">
+                    <button class="button button-registrar button-registrar--operarios">Registrar</button>
+                </div>
+            </div>
+        </form>
+    </main class="contenedor-administracion">
+
+    <div class="contenedor-administracion contenedor-administracion--sombra">
+        <section class="administracion-registrar administracion-registros administracion-registros--operarios">
+            <table class="administracion-tabla administracion-tabla--operarios administracion-tabla--ofertas">
+                <caption class="administracion-registrar__titulo">Ofertas</caption>
+                <thead>
+                    <th>Nombre</th>
+                    <th>Garantía</th>
+                    <th>Precio</th>
+                    <th>Proveedor</th>
+                    <th>Encuesta</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    {% for oferta in ofertas %}
+                        {% set colorRow = 'administracion-tabla__fila--blanca' %}
+                        {% if loop.index % 2 != 0 %}
+                            {% set colorRow = 'administracion-tabla__fila' %}
+                        {% endif %}
+                        <tr class="{{colorRow}}">
+                            <td class="text-align-center">{{oferta[0].nombre}}</td>
+                            {% set garantia = 'Sin definir' %}
+                            {% if oferta[0].garantia %}
+                                {% set garantia = oferta[0].garantia %}
+                            {% endif %}
+                            <td class="text-align-center">{{garantia}}</td>
+                            <td class="text-align-center">{{oferta[0].precio}}</td>
+                            <td class="text-align-center">{{oferta[1]}}</td>
+                            <td class="text-align-center">{{oferta[2]}}</td>
+                            <td class="text-align-center">
+                                <a href="{{url_for('eliminarOferta', id = oferta[0].id)}}" class="button-eliminar">
+                                    <img src="../static/Imgs/delete_outline.png" alt="Icono Eliminar">
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+{% endblock %}

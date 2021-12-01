@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="../static/Imgs/Icon simple-elasticsearch.svg">
+    <link rel="stylesheet" href="../static/styles/normalize.css">
+    <link rel="stylesheet" href="../static/styles/style.css">
+    <link href="{{ url_for('static',filename='styles/style.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+	<title>Génesis System</title>
+</head>
+	<body>
+		<header class="header">
+			<div class="logo">
+				<div>
+					<img src="{{ url_for('static',filename='Imgs/Icon simple-elasticsearch.png')}}" alt="Logo Génesis System" class="logo__img">
+				</div>
+				<h1 class="logo__titulo no-margin">Génesis System</h1>
+			</div>
+		</header>
+        
+		<main>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Productos/Servicios
+                        </th>
+
+                        <th>
+                            Calificaciones
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for compra in compras %}
+                    <tr>
+                        <td>
+                            {{compra.1}}
+                        
+                        </td>
+                        <td>
+                            <a id="btn-abrir-popup" class="btn-abrir-popup" href="{{url_for('productoServ', numDoc = numDoc, enc_id = compra.5)}}">Evaluar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <!-- <a id="btn-abrir-popup" class="btn-abrir-popup">prueba</a> -->
+            </table>
+
+		</main>
+
+        <div class="overlay" id="overlay">
+            <div class="popup" id="popup">
+                <div id="close-popup" class="close-popup">
+                    <a href="#"><i class="fas fa-times"></i></a>
+                </div>
+                
+                <h3>¡Califica tus productos y servicios!</h3>
+                <form action="" method="post">
+                    <div class="cont-table">
+                        <table class="administracion-tabla">
+                            <thead>
+                                <tr class="quesTable">
+                                    <th>
+                                        Preguntas
+                                    </th>
+                                    <th>
+                                        Calificaciones
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% set nameStar = '' %}
+                                {% for pregunta in preguntas %}
+                                <tr class="quesTable">
+                                    <td>
+                                        {{pregunta.descripcion}}
+                                    </td>
+                                        <td class="calificacion">
+                                            <fieldset>
+                                                {% set nameStar = 'estrellas' ~ (loop.index) %}
+                                                {% set idAndFor = '' %}
+                                                {% for n in range(5, 0, -1) %}
+                                                    <input id="{{cont1.nextValue()}}" type="radio" name="{{nameStar}}" value="{{n}}"><label for="{{cont1.value}}">★</label>
+                                                {% endfor %}
+                                            </fieldset>
+                                        </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <button class="btn-enviar">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script>
+            let btnAbrirPopup = document.getElementById('btn-abrir-popup'),
+                overlay = document.getElementById('overlay'),
+                popup = document.getElementById('popup'),
+                btnClose = document.getElementById('close-popup');
+
+            if ({{enc_id}} == 0) {
+                overlay.classList.add('overlay-active');
+            }
+
+            btnClose.addEventListener('click', function(){
+                overlay.classList.add('overlay-active');
+            })
+        </script>
+	</body>
+</html>

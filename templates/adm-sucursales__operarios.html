@@ -1,0 +1,127 @@
+{% extends './baseMenu.html' %}
+
+{% block identMenu %}
+    <p class="header-menu__parrafo no-margin">Administrador</p>
+{% endblock %}
+
+{% block elementsSide %}
+    <a href="{{url_for('admPerfil')}}" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/user.svg" alt="Icono Perfil">
+        </div>
+        <p class="element-side__text element-side__text--active no-margin">Perfil</p>
+    </a>
+
+    <a href="{{url_for('admVentas')}}" class="element-side ">
+        <div class="icon">
+            <img src="../static/Imgs/bar_chart.svg" alt="Icono Ventas">
+        </div>
+        <p class="element-side__text no-margin">Ventas</p>
+    </a>
+
+    <a href="" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/pie_chart_outline.svg" alt="Icono Reportes">
+        </div>
+        <p class="element-side__text no-margin">Reportes</p>
+    </a>
+
+    <a href="{{url_for('registrarProveedor')}}" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/layers_alt.svg" alt="Icono Proveedores">
+        </div>
+        <p class="element-side__text no-margin">Proveedores</p>
+    </a>
+
+    <a href="{{url_for('registrarEvaluaciones')}}" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/star_border.svg" alt="Icono Evaluaciones">
+        </div>
+        <p class="element-side__text no-margin">Evaluaciones</p>
+    </a>
+
+    <a href="{{url_for('registrarSucursal')}}" class="element-side no-margin element-side--active">
+        <div class="icon">
+            <img src="../static/Imgs/group.svg" alt="Icono Operarios">
+        </div>
+        <p class="element-side__text no-margin">Sucursales</p>
+    </a>
+{% endblock %}
+
+{% block mainContainer %}
+    <header class="contenedor-administracion header-administracion">
+        <nav class="nav-administracion">
+            <a href="{{url_for('registrarSucursal')}}" class="nav-administracion__enlace">Sucursales</a>
+            <a href="{{url_for('registrarOperario')}}" class="nav-administracion__enlace nav-administracion__enlace--activo">Operarios</a>
+            <a href="{{url_for('agregarOferta')}}" class="nav-administracion__enlace no-margin">Ofertas</a>    
+        </nav>
+    </header>
+
+    <main class="contenedor-administracion contenedor-administracion--sombra">
+        <form action="{{url_for('registrarOperario')}}" class="administracion-registrar" method="POST">
+            <h2 class="administracion-registrar__titulo">Registrar Operario</h2>
+            <div class="flex-row-container justify-space-between">
+                <div class="controles-registrar controles-registrar--operarios">
+                    <div class="contenedor-controles">
+                        <input type="text" placeholder="Nombres" class="controles-registrar__control" name="nombres" required>
+                        <input type="text" placeholder="Apellidos" class="controles-registrar__control" name="apellidos" required>
+                        <input type="number" placeholder="Número de documento" class="controles-registrar__control" name="numDocumento" required>
+                    </div>
+                    <div class="contenedor-controles">
+                        <input type="mail" placeholder="Correo electrónico" class="controles-registrar__control" name="correo" required>
+                        <input type="password" placeholder="Contraseña" class="controles-registrar__control" name="contrasena" required>
+                        <select name="idSucursal" class="controles-registrar__control" id="select" required>
+                            <option selected disabled>Sucursal</option>
+                            {% for sucursal in sucursales %}
+                                <option value="{{sucursal.id}}">{{sucursal.nombre}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="flex-direction-row align-items-center contenedor-button-registro">
+                    <button class="button button-registrar button-registrar--operarios" disabled>Registrar</button>
+                </div>
+            </div>
+        </form>
+    </main class="contenedor-administracion">
+
+    <section class="contenedor-administracion contenedor-administracion--sombra">
+        <div class="administracion-registrar administracion-registros administracion-registros--operarios">
+            <table class="administracion-tabla administracion-tabla--operarios">
+                <caption class="administracion-registrar__titulo">Operarios</caption>
+                <thead>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Documento</th>
+                    <th>Correo</th>
+                    <th>Contraseña</th>
+                    <th>Sucursal</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    {% for operario in operarios %}
+                        {% set colorRow = 'administracion-tabla__fila--blanca' %}
+                        {% if loop.index % 2 != 0 %}
+                            {% set colorRow = 'administracion-tabla__fila' %}
+                        {% endif %}
+                        <tr class="{{colorRow}}">
+                            <td class="text-align-center ">{{operario[0].nombre}}</td>
+                            <td class="text-align-center">{{operario[0].apellido}}</td>
+                            <td class="text-align-center">{{operario[0].numDocumento}}</td>
+                            <td class="text-align-center">{{operario[0].correo}}</td>
+                            <td class="text-align-center no-padding">{{operario[0].contrasena}}</td>
+                            <td class="text-align-center">{{operario[1]}}</td>
+                            <td class="text-align-center">
+                                <a href="{{url_for('eliminarOperario', numDocumento = operario[0].numDocumento)}}" class="button-eliminar">
+                                    <img src="../static/Imgs/delete_outline.png" alt="Icono Eliminar">
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <script src="../static/scripts/script.js"></script>
+{% endblock %}

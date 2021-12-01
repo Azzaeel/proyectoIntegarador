@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="../static/styles/normalize.css">
+		<link rel="stylesheet" href="../static/styles/style.css">
+		<link rel="icon" href="../static/Imgs/Icon simple-elasticsearch.svg">
+		<title>Genésis System - Login</title>
+	</head>
+	<body class="body-login">
+		<div class="background-login">
+			<header>
+				<a href="{{url_for('index')}}" class="home-enlace">
+					<img src="../static/Imgs/icon-home.png" alt="Icono Home" class="home-enlace__img">
+				</a>
+			</header>
+
+			<main class="main-login">
+				<div class="container-img">
+					<img src="../static/Imgs/Icon simple-elasticsearch.svg" alt="Logo Genésis System" class="container-img__logo">
+				</div>
+
+				<form action="{{url_for('login', comprobacion = 'Logged')}}" method="POST">
+					<div class="login-entrada">
+						<label class="login-entrada__label">Correo electrónico</label>
+						<input type="mail" placeholder="Digite su correo" name="correoUsuario" class="login-entrada__control" required>
+					</div>
+
+					<div class="login-entrada no-margin">
+						<label class="login-entrada__label">Contraseña</label>
+						<input type="password" placeholder="Digite su contraseña" name="contrasenaUsuario" class="login-entrada__control " required>
+					</div>
+
+                    {% if comprobacion == 'noLoggedIn' %}
+                        <p class="main-login__no-find text-align-center">No se encontrarios registros. Revise sus datos y digite nuevamente.</p>
+                    {% endif %}
+					
+					<div class="center-container">
+						<button class="button button--login">Iniciar Sesión</button>
+						<a href="http://www.url.com" target="_blank" class="main-login__enlace">¿Olvidó su contraseña?</a>
+					</div>
+				</form>
+			</main>
+		</div>
+	</body>
+</html>

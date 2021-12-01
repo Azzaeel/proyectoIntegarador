@@ -1,0 +1,124 @@
+{% extends './baseMenu.html' %}
+
+{% block identMenu %}
+    <p class="header-menu__parrafo no-margin">Administrador</p>
+{% endblock %}
+
+{% block elementsSide %}
+
+    <a href="{{url_for('admPerfil')}}" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/user.svg" alt="Icono Perfil">
+        </div>
+        <p class="element-side__text element-side__text--active no-margin">Perfil</p>
+    </a>
+
+    <a href="{{url_for('admVentas')}}" class="element-side element-side--active">
+        <div class="icon">
+            <img src="../static/Imgs/bar_chart.svg" alt="Icono Ventas">
+        </div>
+        <p class="element-side__text no-margin">Ventas</p>
+    </a>
+
+    <a href="" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/pie_chart_outline.svg" alt="Icono Reportes">
+        </div>
+        <p class="element-side__text no-margin">Reportes</p>
+    </a>
+
+    <a href="{{url_for('registrarProveedor')}}" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/layers_alt.svg" alt="Icono Proveedores">
+        </div>
+        <p class="element-side__text no-margin">Proveedores</p>
+    </a>
+
+    <a href="{{url_for('registrarEvaluaciones')}}" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/star_border.svg" alt="Icono Evaluaciones">
+        </div>
+        <p class="element-side__text no-margin">Evaluaciones</p>
+    </a>
+
+    <a href="{{url_for('registrarSucursal')}}" class="element-side no-margin">
+        <div class="icon">
+            <img src="../static/Imgs/group.svg" alt="Icono Operarios">
+        </div>
+        <p class="element-side__text no-margin">Sucursales</p>
+    </a>
+
+{% endblock %}
+
+{% block mainContainer %}
+
+    <form action="{{url_for('admVentas')}}" method="POST">
+        <div>
+            <select required name="sucuOpc">
+                    <option disabled selected type="text" >Sucursales</option>
+                {% for sucursal in sucursales %}
+                    <option type="text" value="{{sucursal.id}}">{{sucursal.nombre}}</option>
+                {% endfor %}
+            </select>	
+        </div>    
+        
+        <div>
+            <button>Refrescar</button>
+        </div>
+    </form>
+
+    <canvas id="myChart" width="50" height="15"></canvas>
+
+    {% block javascript %}
+        <script>
+            const ctx = document.getElementById('myChart').getContext('2d');
+            arreglo = []
+            {% for oferta in ofertas %}
+                arreglo.push({{oferta | safe}})
+            {% endfor %}
+
+            let elementos = []
+            let cantidades = []
+            for (arr of arreglo) {
+                elementos.push(arr['nombre'])
+                cantidades.push(arr['cantidad'])
+            }
+
+            const myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: elementos,
+                    datasets: [{
+                        label: '# de ventas',
+                        data: cantidades,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(153, 102, 255, 0.6)',
+                            'rgba(255, 159, 64, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 0.2
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        </script>
+    {% endblock %}
+
+{% endblock %}

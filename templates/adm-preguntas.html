@@ -1,0 +1,142 @@
+{% extends './baseMenu.html' %}
+
+{% block identMenu %}
+    <p class="header-menu__parrafo no-margin">Administrador</p>
+{% endblock %}
+
+{% block elementsSide %}
+
+    <a href="{{url_for('admPerfil')}}" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/user.svg" alt="Icono Perfil">
+        </div>
+        <p class="element-side__text element-side__text--active no-margin">Perfil</p>
+    </a>
+
+    <a href="{{url_for('admVentas')}}" class="element-side ">
+        <div class="icon">
+            <img src="../static/Imgs/bar_chart.svg" alt="Icono Ventas">
+        </div>
+        <p class="element-side__text no-margin">Ventas</p>
+    </a>
+
+    <a href="" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/pie_chart_outline.svg" alt="Icono Reportes">
+        </div>
+        <p class="element-side__text no-margin">Reportes</p>
+    </a>
+
+    <a href="{{url_for('registrarProveedor')}}" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/layers_alt.svg" alt="Icono Proveedores">
+        </div>
+        <p class="element-side__text no-margin">Proveedores</p>
+    </a>
+
+    <a href="{{url_for('registrarEvaluaciones')}}" class="element-side element-side--active">
+        <div class="icon">
+            <img src="../static/Imgs/star_border.svg" alt="Icono Evaluaciones">
+        </div>
+        <p class="element-side__text no-margin">Evaluaciones</p>
+    </a>
+
+    <a href="{{url_for('registrarSucursal')}}" class="element-side no-margin">
+        <div class="icon">
+            <img src="../static/Imgs/group.svg" alt="Icono Operarios">
+        </div>
+        <p class="element-side__text no-margin">Sucursales</p>
+    </a>
+
+{% endblock %}
+
+{% block mainContainer %}
+
+    <header class="contenedor-administracion header-administracion">
+        <nav class="nav-administracion">
+            <a href="{{url_for('registrarEvaluaciones')}}" class="nav-administracion__enlace">Encuestas</a>
+            <a href="{{url_for('registrarPreguntas')}}" class="nav-administracion__enlace nav-administracion__enlace--activo no-margin">Preguntas</a>
+        </nav>
+    </header>
+
+    <main class="contenedor-administracion contenedor-administracion--sombra">
+        <form action="{{url_for('registrarPreguntas')}}" class="administracion-registrar" method="POST">
+            <h2 class="administracion-registrar__titulo">Registrar Preguntas</h2>
+            <div class="flex-row-container justify-space-between">
+                <div class="controles-registrar controles-registrar--ofertas">
+                    <select class="controles-registrar__control" name="idEncuesta" id="select" required>
+                        <option selected disabled>Encuesta</option>
+                        {% for encuesta in encuestas %}
+                            <option value="{{encuesta.id}}">{{encuesta.nombre}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <table class="administracion-tabla administracion-tabla--operarios administracion-tabla--ofertas">
+                    <caption class="administracion-registrar__titulo">Preguntas</caption>
+                    <thead>
+                        <th>Pregunta</th>
+                        <th>Porcentaje</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="text" placeholder="Pregunta 1" class="controles-registrar__control" name="Pregunta1" required>
+                            </td>
+                            <td>
+                                <input type="number" min="0" placeholder="Porcentaje" class="controles-registrar__control" name="porcentaje1" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" placeholder="Pregunta 2" class="controles-registrar__control" name="Pregunta2" required>
+                            </td>
+                            <td>
+                                <input type="number" min="0" placeholder="Porcentaje" class="controles-registrar__control" name="porcentaje2" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" placeholder="Pregunta 3" class="controles-registrar__control" name="Pregunta3" required>
+                            </td>
+                            <td>
+                                <input type="number" min="0" placeholder="Porcentaje" class="controles-registrar__control" name="porcentaje3" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" placeholder="Pregunta 4" class="controles-registrar__control" name="Pregunta4" required>
+                            </td>
+                            <td>
+                                <input type="number" min="0" placeholder="Porcentaje" class="controles-registrar__control" name="porcentaje4" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" placeholder="Pregunta 5" class="controles-registrar__control" name="Pregunta5" required>
+                            </td>
+                            <td>
+                                <input type="number" min="0" placeholder="Porcentaje" class="controles-registrar__control" name="porcentaje5" required>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+          
+
+                <div class="flex-direction-row align-items-center contenedor-button-registro">
+                    <button class="button button-registrar button-registrar--operarios">Registrar</button>
+                </div>
+            </div>
+        </form>
+    </main class="contenedor-administracion">
+    <script src="../static/scripts/script.js"></script>
+    <script>
+        if({{alerta}}){
+            alert("El tipo de encuesta que eligio ya esta lleno")
+        }
+    </script>
+    
+        
+    
+
+{% endblock %}

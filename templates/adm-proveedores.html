@@ -1,0 +1,108 @@
+{% extends './baseMenu.html' %}
+
+{% block identMenu %}
+    <p class="header-menu__parrafo no-margin">Administrador</p>
+{% endblock %}
+
+{% block elementsSide %}
+
+    <a href="{{url_for('admPerfil')}}" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/user.svg" alt="Icono Perfil">
+        </div>
+        <p class="element-side__text element-side__text--active no-margin">Perfil</p>
+    </a>
+
+    <a href="{{url_for('admVentas')}}" class="element-side ">
+        <div class="icon">
+            <img src="../static/Imgs/bar_chart.svg" alt="Icono Ventas">
+        </div>
+        <p class="element-side__text no-margin">Ventas</p>
+    </a>
+
+    <a href="" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/pie_chart_outline.svg" alt="Icono Reportes">
+        </div>
+        <p class="element-side__text no-margin">Reportes</p>
+    </a>
+
+    <a href="{{url_for('registrarProveedor')}}" class="element-side element-side--active">
+        <div class="icon">
+            <img src="../static/Imgs/layers_alt.svg" alt="Icono Proveedores">
+        </div>
+        <p class="element-side__text no-margin">Proveedores</p>
+    </a>
+
+    <a href="{{url_for('registrarEvaluaciones')}}" class="element-side">
+        <div class="icon">
+            <img src="../static/Imgs/star_border.svg" alt="Icono Evaluaciones">
+        </div>
+        <p class="element-side__text no-margin">Evaluaciones</p>
+    </a>
+
+    <a href="{{url_for('registrarSucursal')}}" class="element-side no-margin">
+        <div class="icon">
+            <img src="../static/Imgs/group.svg" alt="Icono Operarios">
+        </div>
+        <p class="element-side__text no-margin">Sucursales</p>
+    </a>
+
+{% endblock %}
+
+{% block mainContainer %}
+
+    <header class="contenedor-administracion header-administracion">
+        <nav class="nav-administracion">
+            <a href="{{url_for('registrarProveedor')}}" class="nav-administracion__enlace nav-administracion__enlace--activo">Proveedores</a>
+            <a href="{{url_for('registrarOferta')}}" class="nav-administracion__enlace no-margin">Ofertas</a>
+        </nav>
+    </header>
+
+    <main class="contenedor-administracion contenedor-administracion--sombra">
+        <form action="{{url_for('registrarProveedor')}}" class="administracion-registrar" method="POST">
+            <h2 class="administracion-registrar__titulo">Registrar Proveedor</h2>
+            <div class="flex-row-container justify-space-between">
+                <div class="controles-registrar">
+                    <input type="text" placeholder="Identificación" class="controles-registrar__control" name="identificacion" required>
+                    <input type="text" placeholder="Nombre" class="controles-registrar__control" name="nombre" required>
+                    <input type="tel" placeholder="Teléfono" class="controles-registrar__control" name="telefono" required>
+                </div>
+                <button class="button button-registrar">Registrar</button>
+            </div>
+        </form>
+    </main class="contenedor-administracion">
+
+    <div class="contenedor-administracion contenedor-administracion--sombra">
+        <section class="administracion-registrar administracion-registros">
+            <table class="administracion-tabla">
+                <caption class="administracion-registrar__titulo">Proveedores</caption>
+                <thead>
+                    <th>Identificación</th>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    {% for proveedor in proveedores %}
+                        {% set colorRow = 'administracion-tabla__fila--blanca' %}
+                        {% if loop.index % 2 != 0 %}
+                            {% set colorRow = 'administracion-tabla__fila' %}
+                        {% endif %}
+                    <tr class="{{colorRow}}">
+                        <td class="text-align-center">{{proveedor.id}}</td>
+                        <td class="text-align-center">{{proveedor.nombre}}</td>
+                        <td class="text-align-center">{{proveedor.telefono}}</td>
+                        <td class="text-align-center">
+                            <a href="{{url_for('eliminarProveedor', id = proveedor.id)}}" class="button-eliminar">
+                                <img src="../static/Imgs/delete_outline.png" alt="Icono Eliminar">
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+{% endblock %}
